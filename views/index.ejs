@@ -5,25 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
     <link href= "/public/assets/styles.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class ="feed">
-        <h1>Your feed</h1>
-        <div class="status">
-            <form>
-                
-            </form>
-        </div>
-        <div class="posts">
-        <% posts.forEach(post => { %>
-            <div class="post">
-                <h3><%= post.author.name %></h3>
-                <h3><%= post.title %></h3>
-                <p><%= post.content %></p>
-                <p> <%= post.createdAt%></p>
+<body class="bg-gray-200">
+    <div class="px-6 py-8">
+        <div class="flex justify-center container mx-auto">
+            <div class="w-full lg:w-8/12">
+                <% posts.forEach(post => { %>
+                    <div class="mt-6">
+                        <div class="max-w-4xl px-10 py-6 bg-white rounded-lg shadow-md">
+                            <div class="flex justify-between items-center ">
+                                <span class="font-light text-gray-600">
+                                    <%= post.createdAt%>
+                                </span>
+                                <a href="#" class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500">
+                                    subject
+                                </a>
+                        </div>
+                            <div class="mt-2">
+                                <a class="text-2xl text-gray-700 font-bold hover:underline"">
+                                    <%= post.title %>
+                                </a>
+                                <p class="mt-2 text-gray-600">
+                                    <%= post.content %>
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <a></a>
+                                <a href="#" class="flex items-center">
+                                    <%= post.author.name %>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <% });%>
             </div>
-        <% });%>
         </div>
+    </div>
 </div>
    
 </body>
