@@ -1,14 +1,39 @@
 const { Router } = require('express');
-const postcontroller = require('../controllers/postcontroller');
+const fetch = require('node-fetch');
+const models = require('../database/models');
 
 const router = Router();
 
-router.get('/', (req, res) => res.send('Welcome'))
+router.get('/posts', async (req, res) => {
+    await fetch('http://localhost:3300/api/posts')
+        .then((response) => response.json())
+        .then((data) => {
+            res.render('../views/index', {
+                posts: data,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.message });
+        });
+});
 
-router.post('/posts', postcontroller.createPost);
-router.get('/posts', postcontroller.getAllPosts);
-router.get('/posts/:postId', postcontroller.getPostById);
-router.put('/posts/:postId', postcontroller.updatePost);
-router.delete('/posts/:postId', postcontroller.deletePost);
+//add some errorhandling
+router.get('/posts/:id', async (req, res) => {
+    await fetch(`http://localhost:3300/api/posts/${req.params.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+            res.render('../views/post', {
+                post: data,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.message });
+        });
+}); 
+
+
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const models = require('../database/models');
 
+//need to check if user even exists expand with other cnotrollers
 const createPost = async (req, res) => {
     await models.Post.create(req.body)
         .then((data) => {
@@ -10,17 +11,22 @@ const createPost = async (req, res) => {
         });
 };
 
-const getAllPosts = async (req, res) => {
-    await models.Post.findAll()
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).json({ error: err.message });
-        });
+const readAllPosts = async (req, res) => {
+    await models.Post.findAll({
+        include:  [{
+            model: models.User,
+            as: 'author'
+        }]
+    })
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
 };
 
-const getPostById = async (req, res) => {
+const readPostById = async (req, res) => {
     const { postId } = req.params;
 
     await models.Post.findOne({
@@ -86,8 +92,8 @@ const deletePost = async (req, res) => {
 
 module.exports = {
     createPost,
-    getAllPosts,
-    getPostById,
+    readAllPosts,
+    readPostById,
     updatePost,
     deletePost,
 };

@@ -1,9 +1,16 @@
 const express = require('express');
 const routes = require('../routes');
+const apiRoutes = require('../routes/api');
+const ejs = require('ejs');
+const app = express();
 
-const server = express();
-server.use(express.json());
+app.set('view engine', 'ejs');
 
-server.use('/api', routes);
+app.use(express.json());
+app.use(express.static(__dirname + '/public'));
 
-module.exports = server;
+app.use('/api', apiRoutes);
+app.use('/', routes);
+
+
+module.exports = app;

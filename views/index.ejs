@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <% posts.forEach(post => { %>
+        <div class="post">
+            <h3><%= post.author.name %></h3>
+            <h3><%= post.title %></h3>
+            <p><%= post.content %></p>
+            <p> <%= post.createdAt%></p>
+            <% });%>
+        </div>
+   
+</body>
+</html>
