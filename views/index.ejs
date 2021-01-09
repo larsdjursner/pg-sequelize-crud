@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-200">
     <div class="px-6 py-8">
-        <div class="flex justify-center container mx-auto">
+        <div class="flex justify-between container mx-auto">
             <div class="w-full lg:w-8/12">
                 <% posts.forEach(post => { %>
                     <div class="mt-6">
@@ -23,7 +23,7 @@
                                 </a>
                         </div>
                             <div class="mt-2">
-                                <a class="text-2xl text-gray-700 font-bold hover:underline"">
+                                <a class="text-2xl cursor-pointer text-gray-700 font-bold hover:underline" onclick='redirectToPost("<%= post.id %>")'>
                                     <%= post.title %>
                                 </a>
                                 <p class="mt-2 text-gray-600">
@@ -40,10 +40,30 @@
                     </div>
                 <% });%>
             </div>
+            <div class="-mx-8 w-4/12 hidden lg:block">
+                <div class="px-8">
+                    <h1 class="mb-4 text-xl font-bold text-gray-700">Authors</h1>
+                    <div class="flex flex-col bg-white max-w-sm px-6 py-4 mx-auto rounded-lg shadow-md">
+                        <ul class="-mx-4">
+                            <% posts.forEach(post => { %>
+                                <li class="cursor-pointer flex items-center mt-3 mb-3">
+                                    <%= post.author.name %>
+                                </li>
+                            <% }); %>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
    
+
+<script type="text/javascript">
+    const redirectToPost = (postId) => {
+        window.location = `http://localhost:3300/posts/${postId}`;
+    }
+</script>
 </body>
 </html>
-
