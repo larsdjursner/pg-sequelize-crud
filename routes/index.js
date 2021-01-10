@@ -4,12 +4,16 @@ const models = require('../database/models');
 
 const router = Router();
 
+
 router.get('/posts', async (req, res) => {
-    await fetch('http://localhost:3300/api/posts')
-        .then((response) => response.json())
+    await Promise.all([
+            fetch('http://localhost:3300/api/posts').then((response) => response.json()),
+            fetch('http://localhost:3300/api/users').then((response) => response.json())
+        ])
         .then((data) => {
             res.render('../views/index', {
-                posts: data,
+                posts: data[0],
+                users: data[1]
             });
         })
         .catch((err) => {

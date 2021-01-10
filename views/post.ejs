@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
-    <link rel="stylesheet" href="../public/css/styles.css">
-</head>
-<body>
-        <h1><%= post.author.name %></h1>
-        <h3><%= post.createdAt %></h3>
-        <h2><%= post.title %></h2>
-        <h4><%= post.content %></h4>
-        <% post.comments.forEach(com => { %>
-            <p><b> <%= com.author.name %> </b></p>
-            <p> <%= com.createdAt %> </p>
-            <p> <%= com.comment %> </p>
-        <% }); %>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Post</title>
+        <link rel="stylesheet" href="../public/css/styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+        />
+    </head>
+    <body class="bg-gray-200">
+        <div class="px-6 py-8">
+            <div class="flex justify-between container mx-auto">
+                <div class="w-full lg:w-8/12">
+                    <div class="mt-6">
+                        <div
+                            class="max-w-4xl px-10 py-6 bg-white rounded-lg shadow-md"
+                        >
+                            <div class="flex justify-between items-center">
+                                <span class="font-light text-gray-600">
+                                    <%= post.createdAt %>
+                                </span>
+                                <a
+                                    href="#"
+                                    class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500"
+                                >
+                                    subject
+                                </a>
+                            </div>
+                            <div class="mt-2">
+                                <a
+                                    class="text-2xl cursor-pointer text-gray-700 font-bold hover:underline"
+                                    onclick='redirectToPost("<%= post.id %>")'
+                                >
+                                    <%= post.title %>
+                                </a>
+                                <p class="mt-2 text-gray-600">
+                                    <%= post.content %>
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <a> </a>
+                                <a href="#" class="flex items-center">
+                                    <h1
+                                        class="text-gray-700 font-bold hover:underline"
+                                    >
+                                        <%= post.author.name %>
+                                    </h1>
+                                </a>
+                            </div>
+                            <% post.comments.forEach(com => { %>
+                            <div
+                                class="items-center p-2 mt-6 rounded-lg border-2 border-gray-100"
+                            >
+                                <h2
+                                    class="text-gray-700 font-bold hover:underline cursor-pointer"
+                                >
+                                    <%= com.author.name %>
+                                </h2>
+                                <span
+                                    class="font-light text-gray-600 mt-2 mb-2"
+                                >
+                                    <%= com.createdAt%>
+                                </span>
+                                <p><%= com.comment %></p>
+                            </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            const dateParser = (unparsedDate) => {
+                const date = new Date(unparsedDate);
+
+                return `${date.getDay()}`;
+            };
+        </script>
+    </body>
 </html>
