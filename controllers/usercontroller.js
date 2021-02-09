@@ -42,7 +42,7 @@ const readUserById = async(req, res) => {
     })
         .then((data) => {
             if (data) res.send(data);
-            else res.send({ message: 'cannot find note with id: ' + postId });
+            else res.send({ message: 'cannot find note with id: ' + userId });
         })
         .catch((err) => {
             res.status(500).json({ error: err.message });

@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const fetch = require('node-fetch');
-const models = require('../database/models');
 
 const router = Router();
 
@@ -8,12 +7,14 @@ const router = Router();
 router.get('/posts', async (req, res) => {
     await Promise.all([
             fetch('http://localhost:3300/api/posts').then((response) => response.json()),
-            fetch('http://localhost:3300/api/users').then((response) => response.json())
+            fetch('http://localhost:3300/api/users').then((response) => response.json()),
+            fetch('http://localhost:3300/api/subjects').then((response) => response.json())
         ])
         .then((data) => {
             res.render('../views/index', {
                 posts: data[0],
-                users: data[1]
+                users: data[1],
+                subjects: data[2]
             });
         })
         .catch((err) => {

@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+// const { createBrotliCompress } = require('zlib');
 const envConfigs =  require('../config/config');
 
 const basename = path.basename(__filename);
@@ -31,6 +32,8 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

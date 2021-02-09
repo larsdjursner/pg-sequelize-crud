@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const postcontroller = require('../controllers/postcontroller');
 const usercontroller = require('../controllers/usercontroller');
+const subjectcontroller = require('../controllers/subjectcontroller');
 const router = Router();
 
 router.post('/posts', postcontroller.createPost);
@@ -14,5 +15,9 @@ router.get('/users', usercontroller.readAllUsers);
 router.get('/users/:userId', usercontroller.readUserById);
 router.put('/users/:userId', usercontroller.updateUser);
 router.delete('/users/:userId', usercontroller.deleteUser);
+
+router.post('/subjects', subjectcontroller.createSubject);
+router.get('/subjects', subjectcontroller.readAllSubjects);
+//implement rest
 
 module.exports = router;
